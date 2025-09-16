@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +16,7 @@ const handleSubmit = async (e) => {
   try {
     const res = await API.post("/auth/login", { email, password });
 
-    login(res.data);
+    login({ token: res.data.token, user: res.data.user });
 
     toast.success("Login successful!");
     navigate("/");
@@ -23,6 +24,7 @@ const handleSubmit = async (e) => {
     toast.error(err.response?.data?.msg || "Login failed");
   }
 };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white">

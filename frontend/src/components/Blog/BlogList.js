@@ -21,13 +21,13 @@ const BlogList = () => {
     fetchPosts();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (postId) => {
     try {
       const token = localStorage.getItem("token");
-      await API.delete(`/posts/${id}`, {
+      await API.delete(`/posts/${postId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setPosts(posts.filter((post) => post._id !== id));
+      setPosts(posts.filter((p) => p._id !== postId));
       toast.success("Post deleted!");
     } catch (err) {
       toast.error("Failed to delete post");
@@ -38,42 +38,55 @@ const BlogList = () => {
     <div className="p-6 bg-gray-950 text-white min-h-screen flex justify-center">
       <div className="w-full max-w-3xl">
         <h2 className="text-3xl font-bold mb-6">All Posts</h2>
-        <div className="space-y-4">
-          {posts.map((post) => {
-  console.log("User:", user?._id, "Post Author:", post.author?._id);
-  return (
-    <div
-      key={post._id}
-      className="bg-gray-900 p-4 rounded-lg shadow hover:shadow-lg transition flex items-center justify-between"
-    >
-      <div className="flex flex-col max-w-[80%]">
-        <Link
-          to={`/posts/${post._id}`}
-          className="text-blue-400 text-xl truncate"
-        >
-          {post.title}  <p className="text-sm text-gray-500">Click here to view</p>
-        </Link>
-        <p className="text-gray-400 text-sm">
-          By <span className="font-medium">{post.author?.name}</span> •{" "}
-          {new Date(post.createdAt).toLocaleString()}
-        </p>
-      </div>
 
-     {user && post.author && String(user._id) === String(post.author._id) && (
-  <button
-    onClick={() => handleDelete(post._id)}
-    className="ml-4 bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
-  >
-    Delete
-  </button>
-)}
+        {posts.length === 0 ? (
+          <div className="text-center text-gray-400 mt-20">
+            <p className="text-lg mb-2">No posts found.</p>
+            <p>
+              <Link
+                to="/create"
+                className="text-blue-400 hover:underline"
+              >
+                Create a post
+              </Link>{" "}
+              or browse later.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {posts.map((post) => (
+              <div
+                key={post._id}
+                className="bg-gray-900 p-4 rounded-lg shadow hover:shadow-lg transition flex items-center justify-between"
+              >
+                <div className="flex flex-col max-w-[80%]">
+                  <Link
+                    to={`/posts/${post._id}`}
+                    className="text-blue-400 text-xl truncate"
+                  >
+                    {post.title}{" "}
+                    <p className="text-sm text-gray-500">Click here to view</p>
+                  </Link>
+                  <p className="text-gray-400 text-sm">
+                    By <span className="font-medium">{post.author?.name}</span>{" "}
+                    • {new Date(post.createdAt).toLocaleString()}
+                  </p>
+                </div>
 
-
-    </div>
-  );
-})}
-
-        </div>
+                {user &&
+                  post.author &&
+                  String(user.id || user._id) === String(post.author._id) && (
+                    <button
+                      onClick={() => handleDelete(post._id)}
+                      className="ml-4 bg-red-600 hover:bg-red-700 px-3 py-1 rounded"
+                    >
+                      Delete
+                    </button>
+                  )}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
