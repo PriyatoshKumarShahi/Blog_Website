@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 
+
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/posts", require("./routes/posts"));
 const PORT = process.env.PORT || 5000;
