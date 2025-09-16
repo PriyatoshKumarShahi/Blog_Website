@@ -17,8 +17,8 @@ app.use("/api/posts", require("./routes/posts"));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  
-  app.get("*", (req, res) => {
+ 
+  app.get(/^(?!api).*/, (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
   });
 }
