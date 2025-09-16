@@ -3,7 +3,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const path = require("path");
-const serveStatic = require("serve-static"); 
 
 dotenv.config();
 connectDB();
@@ -18,7 +17,10 @@ app.use("/api/posts", require("./routes/posts"));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  app.use(serveStatic(path.join(__dirname, "../frontend/build"), { index: "index.html" }));
+  
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
+  });
 }
 
 const PORT = process.env.PORT || 5000;
