@@ -7,10 +7,8 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-900 text-white p-4 flex justify-between items-center shadow-md">
-      {/* Logo */}
-      <h1 className="text-xl font-bold">My Blog</h1>
+      <h1 className="text-xl font-bold">Mini Blog Website</h1>
 
-      {/* Links */}
       <div className="flex items-center space-x-6">
         <Link to="/" className="hover:text-blue-400 transition-colors">
           Home

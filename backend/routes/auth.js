@@ -5,7 +5,6 @@ const { body, validationResult } = require("express-validator");
 
 const router = express.Router();
 
-// Register
 router.post("/register", [
   body("name").notEmpty(),
   body("email").isEmail(),
@@ -29,7 +28,7 @@ router.post("/register", [
   }
 });
 
-// Login
+
 router.post("/login", [
   body("email").isEmail(),
   body("password").exists()

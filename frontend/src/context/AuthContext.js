@@ -5,12 +5,12 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // NEW: prevent redirect until check is done
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) setUser(JSON.parse(savedUser));
-    setLoading(false); // finished checking localStorage
+    setLoading(false); 
   }, []);
 
   const login = (data) => {

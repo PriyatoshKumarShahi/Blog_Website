@@ -10,17 +10,20 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   try {
     const res = await API.post("/auth/login", { email, password });
+
     login(res.data);
+
     toast.success("Login successful!");
     navigate("/");
   } catch (err) {
     toast.error(err.response?.data?.msg || "Login failed");
   }
 };
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-950 text-white">
       <form

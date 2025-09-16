@@ -11,8 +11,7 @@ import BlogPost from "./components/Blog/BlogPost";
 import CreatePost from "./components/Blog/CreatePost";
 import "./index.css";
 
-// ✅ PrivateRoute ensures only logged-in users can access certain routes
-// ✅ PrivateRoute ensures only logged-in users can access certain routes
+
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
@@ -27,16 +26,13 @@ const App = () => (
       <Navbar />
       <div className="container">
         <Routes>
-          {/* Protected routes */}
           <Route path="/" element={<PrivateRoute><BlogList /></PrivateRoute>} />
           <Route path="/posts/:id" element={<PrivateRoute><BlogPost /></PrivateRoute>} />
           <Route path="/create" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
 
-          {/* Public routes */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Redirect unknown routes to home */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

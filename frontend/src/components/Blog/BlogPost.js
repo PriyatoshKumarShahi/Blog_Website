@@ -13,11 +13,16 @@ const BlogPost = () => {
   if (!post) return <p className="text-white">Loading...</p>;
 
   return (
-    <div className="p-6 bg-gray-950 text-white min-h-screen">
-      <div className="bg-gray-900 p-6 rounded-lg shadow">
-        <h2 className="text-3xl font-bold">{post.title}</h2>
-        <p className="mt-4">{post.content}</p>
-        <small className="text-gray-400">By {post.author?.name}</small>
+    <div className="bg-gray-950 text-white min-h-screen flex justify-center items-start py-10">
+      <div className="bg-gray-900 p-4 sm:p-6 rounded-lg shadow w-full sm:w-11/12 md:w-4/5 lg:w-2/3 xl:w-1/2">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-2 break-words">{post.title}</h2>
+
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm text-gray-400 mb-3 gap-2">
+          <span>By {post.author?.name}</span>
+          <span>{new Date(post.createdAt).toLocaleString()}</span>
+        </div>
+
+        <p className="leading-relaxed break-words">{post.content}</p>
       </div>
     </div>
   );

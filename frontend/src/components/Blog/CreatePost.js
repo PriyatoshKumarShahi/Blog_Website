@@ -20,7 +20,7 @@ const CreatePost = () => {
       );
         toast.success("Post created!");
 
-      navigate("/"); // redirect to home
+      navigate("/");
     } catch (error) {
       toast.error("Failed to create post");
 
